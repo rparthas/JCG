@@ -7,8 +7,16 @@ public class LoggerMain {
 	public static final Logger logger = Logger.getLogger(LoggerMain.class);
 
 	public static void main(String[] args) {
-		while (true) {
-			logger.info("This is a test log");
+		int loop = 0;
+		while (loop < 100) {
+			logger.warn("This is a warn log");
+			loop++;
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				logger.error("Error occurred in sleep", e);
+				Thread.currentThread().interrupt();
+			}
 		}
 	}
 
