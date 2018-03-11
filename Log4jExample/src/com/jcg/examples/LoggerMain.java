@@ -2,22 +2,17 @@ package com.jcg.examples;
 
 import org.apache.log4j.Logger;
 
+import java.util.stream.IntStream;
+
 public class LoggerMain {
 
-	public static final Logger logger = Logger.getLogger(LoggerMain.class);
+    public static final Logger logger = Logger.getLogger(LoggerMain.class);
 
-	public static void main(String[] args) {
-		int loop = 0;
-		while (loop < 100) {
-			logger.warn("This is a warn log");
-			loop++;
-			try {
-				Thread.sleep(20);
-			} catch (InterruptedException e) {
-				logger.error("Error occurred in sleep", e);
-				Thread.currentThread().interrupt();
-			}
-		}
-	}
+    public static void main(String[] args) {
+        IntStream.rangeClosed(1, 10000).forEach(count -> {
+                    logger.warn("This is a warn log");
+                }
+        );
+    }
 
 }
