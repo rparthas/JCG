@@ -54,7 +54,17 @@ public class TestLogin {
 
     @Test
     public void loginPageFactory() {
-        new LoginPage(webDriver).logIn("hi", "hi");
+        LoginPage loginPage = new LoginPage(webDriver);
+        loginPage.waitForUserName();
+        loginPage.logIn("hi", "hi");
+        assertThat(webDriver.findElement(IndexPage.usernameLocator).getText()).isEqualTo("hi");
+    }
+
+    @Test
+    public void loginQueryObject() {
+        LoginPage loginPage = new LoginPage(webDriver);
+        loginPage.waitForUserNameByLocator();
+        loginPage.logInWithUsernameAndPassword("hi", "hi");
         assertThat(webDriver.findElement(IndexPage.usernameLocator).getText()).isEqualTo("hi");
     }
 
