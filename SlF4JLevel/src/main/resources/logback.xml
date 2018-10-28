@@ -3,11 +3,11 @@
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <target>System.out</target>
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %mdc{app} %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %marker %-5level %logger{36} %msg%n</pattern>
         </encoder>
     </appender>
 
-    <root level="info">
+    <root level="error">
         <appender-ref ref="console"/>
     </root>
 
