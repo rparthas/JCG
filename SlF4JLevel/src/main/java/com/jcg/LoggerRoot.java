@@ -22,7 +22,9 @@ public class LoggerRoot {
     public static void runLoop(int number) {
         Marker fatal = MarkerFactory.getMarker("FATAL");
         logger.trace("Run loop started");
-        logger.warn("Number" + number);
+        if(number == 0){
+            logger.warn("Number:{}",number);
+        }
         for (int token = 1; token <= 10; token++) {
             logger.debug("loop number" + token);
             logger.trace("Running the division application");
