@@ -1,16 +1,12 @@
 package com.jcg.selenium;
 
-import org.junit.Test;
-import org.junit.experimental.ParallelComputer;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+        GoogleSearchTest.class
+})
 public class TestSuite {
-    @Test
-    public void test() {
-        Class[] cls={GoogleSearchTest.class };
-        Result result = JUnitCore.runClasses(new ParallelComputer(true, true), cls);
-        System.out.println(result.wasSuccessful());
-    }
+//
 }

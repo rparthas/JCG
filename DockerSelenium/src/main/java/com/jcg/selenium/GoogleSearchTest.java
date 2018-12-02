@@ -15,31 +15,10 @@ import java.net.URL;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-@RunWith(ParallelizedParameterized.class)
-public class GoogleSearchTest {
-
-    protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
-
-    public WebDriver getDriver() {
-        return driver.get();
-    }
-
-    public MutableCapabilities capabilities;
-
-    public void log(String message) {
-        System.out.println(new Date().toString() + "---" + message + "--" + capabilities.toString());
-    }
-
-    @Parameterized.Parameters
-    public static MutableCapabilities[] getBrowserCapabilities() {
-        return new MutableCapabilities[]{
-                new ChromeOptions(),
-                new FirefoxOptions()
-        };
-    }
+public class GoogleSearchTest extends TestBase {
 
     public GoogleSearchTest(MutableCapabilities capabilities) {
-        this.capabilities = capabilities;
+       super(capabilities);
     }
 
     @Before
@@ -97,4 +76,6 @@ public class GoogleSearchTest {
         imageSearch.click();
         log("enterGoogleSearchAndImageSearch-end");
     }
+
+
 }
