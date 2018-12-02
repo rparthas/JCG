@@ -20,10 +20,6 @@ public class TestBase {
 
     public MutableCapabilities capabilities;
 
-    public void log(String message) {
-        System.out.println(new Date().toString() + "---" + message + "--" + capabilities.toString());
-    }
-
     @Parameterized.Parameters
     public static MutableCapabilities[] getBrowserCapabilities() {
         return new MutableCapabilities[]{
