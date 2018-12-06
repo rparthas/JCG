@@ -1,19 +1,12 @@
 package com.jcg.selenium;
 
-import org.junit.*;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.Assert;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
-
-import java.net.URL;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class GoogleSearchTest extends TestBase {
 
@@ -21,23 +14,9 @@ public class GoogleSearchTest extends TestBase {
        super(capabilities);
     }
 
-    @Before
-    public void setUp() throws Exception {
-        RemoteWebDriver webDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
-        webDriver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
-        driver.set(webDriver);
-    }
-
-    @After
-    public void tearDown() {
-        getDriver().quit();
-    }
-
-    @AfterClass
-    public static void remove() {
-        driver.remove();
-    }
-
+//    public GoogleSearchTest(){
+//        super(new ChromeOptions());
+//    }
 
     @Test
     public void openGoogle() {
