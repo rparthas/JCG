@@ -6,3 +6,6 @@ gradle
 out
 gradle*
 settings.gradle
+.classpath
+.project
+*.class
