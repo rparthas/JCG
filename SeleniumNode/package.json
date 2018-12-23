@@ -1,0 +1,19 @@
+{
+  "name": "seleniumnode",
+  "version": "1.0.0",
+  "description": "A test project for selenium",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "npm",
+    "selenium"
+  ],
+  "author": "Rajagopal",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "23.6.0",
+    "selenium-webdriver": "4.0.0-alpha.1"
+  }
+}
