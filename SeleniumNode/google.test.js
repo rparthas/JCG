@@ -1,3 +1,4 @@
+const fs = require('fs');
 describe('test google.com', () => {
 
     const {
@@ -46,6 +47,8 @@ describe('test google.com', () => {
         await driver.wait(until.titleContains("selenium"), 4000);
         var imageSearch = driver.findElement(By.xpath("//a[contains(text(), 'Images')]"));
         await imageSearch.click();
+        let image = await driver.takeScreenshot();
+        fs.writeFileSync('out.png', image, 'base64');
     });
 
 });
