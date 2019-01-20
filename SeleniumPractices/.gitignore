@@ -1,0 +1,10 @@
+.idea
+*.iml
+target
+.gradle
+gradle
+out
+settings.gradle
+gradlew*
+chromedriver
+.DS_Store
