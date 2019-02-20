@@ -26,3 +26,6 @@ Input Search Term
     [Arguments]    ${search_term}
     Input Text    q    ${search_term}
     Press Keys  None    ENTER
+
+Perform Image Search
+    Click Element    	css:a[href*='tbm=isch']

@@ -13,5 +13,11 @@ Open Search
 
 Search Keyword
     Open Browser To Search Page
-    Input Search Term  test
+    Input Search Term  hi
+    [Teardown]    Close Browser
+
+Search Image
+    Open Browser To Search Page
+    Input Search Term  hi
+    Perform Image Search
     [Teardown]    Close Browser
