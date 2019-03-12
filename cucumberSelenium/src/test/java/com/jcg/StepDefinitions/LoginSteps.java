@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.nio.file.Paths;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LoginSteps {
@@ -21,7 +23,7 @@ public class LoginSteps {
 
     @When("^I navigate to login\\.html page$")
     public void iNavigateToLoginHtmlPage() throws Throwable {
-        webDriver.get(DriverInitializer.getProperty("login.url"));
+        webDriver.get(Paths.get(DriverInitializer.getProperty("login.url")).toUri().toString());
     }
 
     @When("^I provide username as hi and password as hi$")
