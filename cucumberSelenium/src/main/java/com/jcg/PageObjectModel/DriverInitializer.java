@@ -15,8 +15,6 @@ public class DriverInitializer {
             properties = new Properties();
             properties.load(DriverInitializer.class.getClassLoader()
                     .getResourceAsStream("application.properties"));
-            System.setProperty("webdriver.chrome.driver", properties.getProperty("chrome.path"));
-            System.setProperty("webdriver.gecko.driver", properties.getProperty("gecko.path"));
         } catch (Exception e) {
             e.printStackTrace();
         }

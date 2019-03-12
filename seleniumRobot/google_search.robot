@@ -13,11 +13,11 @@ Open Search
 
 Search Keyword
     Open Browser To Search Page
-    Input Search Term  hi
+    Input Search Term  Selenium
     [Teardown]    Close Browser
 
 Search Image
     Open Browser To Search Page
-    Input Search Term  hi
+    Input Search Term  Selenium
     Perform Image Search
     [Teardown]    Close Browser
