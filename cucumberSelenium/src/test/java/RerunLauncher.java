@@ -1,5 +1,3 @@
-package com.jcg.StepDefinitions;
-
 import cucumber.api.CucumberOptions;
 import cucumber.api.SnippetType;
 import cucumber.api.junit.Cucumber;
