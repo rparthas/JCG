@@ -23,21 +23,18 @@ public class CalculatorStepDefinitions extends SpringIntegrationTest {
 
     @When("the client calls \\/calc\\/sub with values {int} and {int}")
     public void the_client_calls_calc_sub_with_values_and(Integer int1, Integer int2) {
-        // Write code here that turns the phrase above into concrete actions
         response = restTemplate.getForObject(url + "sub?a=" +
                 int1 + "&b=" + int2, Integer.class);
     }
 
     @When("the client calls \\/calc\\/mul with values {int} and {int}")
     public void the_client_calls_calc_mul_with_values_and(Integer int1, Integer int2) {
-        // Write code here that turns the phrase above into concrete actions
         response = restTemplate.getForObject(url + "mul?a=" +
                 int1 + "&b=" + int2, Integer.class);
     }
 
     @When("the client calls \\/calc\\/div with values {int} and {int}")
     public void the_client_calls_calc_div_with_values_and(Integer int1, Integer int2) {
-        // Write code here that turns the phrase above into concrete actions
         response = restTemplate.getForObject(url + "div?a=" +
                 int1 + "&b=" + int2, Integer.class);
     }
