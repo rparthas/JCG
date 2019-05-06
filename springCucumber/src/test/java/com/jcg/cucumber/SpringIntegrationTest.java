@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootTest(
         classes = SpringCucumberApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class SpringIntegrationTest {
+public abstract class SpringIntegrationTest {
 
     protected RestTemplate restTemplate = new RestTemplate();
 
