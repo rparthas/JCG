@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <style type="text/css">
+        #index {
+            margin: 30vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="index">
+        Enter your name:<input name="username" type="text" />
+        <br />
+        Enter your sex:
+        <input name="sex" value="Male" type="radio"> Male
+        <input name="sex" value="Female" type="radio"> Female
+        <input name="sex" value="Non Binary" type="radio"> Non Binary
+        <pre id="display"></pre>
+    </div>
+    <script type="text/javascript">
+        function radioElement(elementName, targetFunction) {
+            var radioElements = document.getElementsByName("sex");
+            for (var i = 0; i < radioElements.length; i++) {
+                targetFunction(radioElements[i]);
+            }
+        }
+
+        document.getElementsByName("username")[0].addEventListener("change", function (event) {
+            var result = "";
+            radioElement("sex", function (element) {
+                if (element.checked) {
+                    result = element.value;
+                }
+            });
+            document.getElementById("display").innerHTML = "Hi " + event.target.value + "(" + result + ")";
+        });
+
+        radioElement("sex", function (element) {
+            element.addEventListener("change", function (event) {
+                document.getElementById("display").innerHTML = "Hi " + document.getElementsByName(
+                        "username")[0]
+                    .value + "(" + event.target.value + ")";
+            })
+        });
+    </script>
+</body>
+
+</html>
