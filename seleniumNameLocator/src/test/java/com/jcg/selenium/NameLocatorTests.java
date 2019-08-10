@@ -1,12 +1,15 @@
 package com.jcg.selenium;
 
 import org.junit.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 public class NameLocatorTests {
 
@@ -47,13 +50,20 @@ public class NameLocatorTests {
     }
 
     @Test
-    public void findElements() {
+    public void findElements(){
         String name = "Jane";
         enterUserName(name);
-        WebElement webElement = webDriver.findElements(By.name("sex")).get(0);
+        WebElement webElement = webDriver.findElements(By.name("sex")).get(1);
         webElement.click();
         webElement.sendKeys(Keys.TAB);
-        Assert.assertEquals("Hi " + name + "(Male)",
+        Assert.assertEquals("Hi " + name + "(Female)",
                 webDriver.findElement(By.id("display")).getText());
+    }
+
+    private void takeScreenshot() throws IOException {
+        File srcFile=((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
+        Path output = new File("output1.png").toPath();
+        Files.copy(srcFile.toPath(),output,StandardCopyOption.REPLACE_EXISTING);
+
     }
 }
