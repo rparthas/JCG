@@ -8,18 +8,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 public class NameLocatorTests {
 
     WebDriver webDriver;
 
-    public static final String file = "file:///D:\\git\\JCG\\seleniumNameLocator\\index.html";
+    public static final String file = "file:///index.html";
 
     @BeforeClass
     public static void setUp() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "chromedriver");
     }
 
     @Before
@@ -34,24 +31,26 @@ public class NameLocatorTests {
     }
 
     @Test
-    public void findElement() throws MalformedURLException, InterruptedException {
+    public void findElement() {
         String name = "Jane";
-        webDriver.navigate().to(file);
-        WebElement webElement = webDriver.findElement(By.name("username"));
-        webElement.sendKeys(name);
-        webElement.sendKeys(Keys.TAB);
+        enterUserName(name);
         Assert.assertEquals("Hi " + name + "()",
                 webDriver.findElement(By.id("display")).getText());
     }
 
-    @Test
-    public void findElements() throws MalformedURLException, InterruptedException {
-        String name = "Jane";
+    private WebElement enterUserName(String name) {
         webDriver.navigate().to(file);
         WebElement webElement = webDriver.findElement(By.name("username"));
         webElement.sendKeys(name);
         webElement.sendKeys(Keys.TAB);
-        webElement = webDriver.findElements(By.name("sex")).get(0);
+        return webElement;
+    }
+
+    @Test
+    public void findElements() {
+        String name = "Jane";
+        enterUserName(name);
+        WebElement webElement = webDriver.findElements(By.name("sex")).get(0);
         webElement.click();
         webElement.sendKeys(Keys.TAB);
         Assert.assertEquals("Hi " + name + "(Male)",
