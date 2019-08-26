@@ -9,3 +9,5 @@ settings.gradle
 .classpath
 .project
 *.class
+bin
+*.DS_Store

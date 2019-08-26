@@ -39,3 +39,5 @@ gradle-app.setting
 bin
 target
 .vscode
+.DS_Store
+*.DS_Store

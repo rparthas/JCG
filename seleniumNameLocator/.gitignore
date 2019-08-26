@@ -4,5 +4,6 @@
 *.iml
 .project
 .settings
-.classpath.DS_Store
-*.DS_Store
+.classpath
+chromedriver
+*.DS_Store

@@ -1,3 +1,10 @@
-.idea
+/bin/
+/target/
+.idea/
 *.iml
-target
+.project
+.settings
+.classpath
+out
+*.DS_Store
+*.DS_Store
