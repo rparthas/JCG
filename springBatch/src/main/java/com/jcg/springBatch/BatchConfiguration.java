@@ -2,8 +2,7 @@ package com.jcg.springBatch;
 
 import com.jcg.springBatch.entity.Movie;
 import com.jcg.springBatch.entity.MovieGenre;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.Step;
+import org.springframework.batch.core.*;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -21,6 +20,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.UrlResource;
 
 import java.net.MalformedURLException;
+import java.util.Date;
 
 @Configuration
 @EnableBatchProcessing
@@ -45,6 +45,7 @@ public class BatchConfiguration {
     public Step movieStep() throws MalformedURLException {
         return stepBuilderFactory
                 .get("movieStep")
+                .listener(movieStepListener())
                 .<Movie, MovieGenre>chunk(10)
                 .reader(jsonItemReader())
                 .processor(movieListItemProcessor())
@@ -76,5 +77,26 @@ public class BatchConfiguration {
                 .delimiter(",")
                 .names(new String[]{"title", "genre"})
                 .build();
+    }
+
+    @Bean
+    public StepExecutionListener movieStepListener() {
+        return new StepExecutionListener() {
+
+            @Override
+            public void beforeStep(StepExecution stepExecution) {
+                stepExecution.getExecutionContext().put("start",new Date().getTime());
+                System.out.println("Step name:" + stepExecution.getStepName() + " Started");
+            }
+
+            @Override
+            public ExitStatus afterStep(StepExecution stepExecution) {
+                long elapsed = new Date().getTime() - stepExecution.getExecutionContext().getLong("start");
+                System.out.println("Step name:" + stepExecution.getStepName() + " Ended. Running time is "+ elapsed +" milliseconds.");
+                System.out.println("Read Count:" + stepExecution.getReadCount() +
+                        " Write Count:" + stepExecution.getWriteCount());
+                return ExitStatus.COMPLETED;
+            }
+        };
     }
 }

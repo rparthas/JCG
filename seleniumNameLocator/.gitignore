@@ -5,5 +5,5 @@
 .project
 .settings
 .classpath
-chromedriver
+chromedriver*
 *.DS_Store
