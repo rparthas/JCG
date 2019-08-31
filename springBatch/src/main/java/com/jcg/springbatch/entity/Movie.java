@@ -1,4 +1,4 @@
-package com.jcg.springBatch.entity;
+package com.jcg.springbatch.entity;
 
 import java.util.List;
 
