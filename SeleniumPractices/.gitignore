@@ -7,6 +7,6 @@ out
 settings.gradle
 gradlew*
 chromedriver
-.DS_Store
-.DS_Store
-*.DS_Store
+*.DS_Store
+.project
+bin

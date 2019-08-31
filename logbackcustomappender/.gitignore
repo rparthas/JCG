@@ -6,4 +6,5 @@ out
 gradle
 gradlew*
 *.DS_Store
-*.DS_Store
+.project
+bin
