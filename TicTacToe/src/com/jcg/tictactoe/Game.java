@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Game {
 
-    private int SIZE = 4;
+    private int SIZE = 0;
     private final String FILLER = " ";
     private String[][] positions;
     private Player[] players =

@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 public class Main {
 
+    public static final int GRID = 3;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Game game = null;
+        Game game;
         loop:
         while (true) {
             System.out.println("Enter number of human players");
@@ -14,10 +16,10 @@ public class Main {
                 int input = scanner.nextInt();
                 switch (input) {
                     case 1:
-                        game = new Game("Player1", "Computer1", 0);
+                        game = new Game("Player1", "Computer1", GRID);
                         break loop;
                     case 2:
-                        game = new Game("Player1", "Player2", 0);
+                        game = new Game("Player1", "Player2", GRID);
                         break loop;
                 }
             } catch (Exception e) {
