@@ -29,7 +29,7 @@ public class Game {
 
     public void start() {
         printBoard();
-        currPlayer.playMove(this, board);
+        currPlayer.playMove(this);
     }
 
     private boolean isNoMovesLeft() {
@@ -44,14 +44,15 @@ public class Game {
     }
 
 
-    public void move(int xPosition, int yPosition) {
+    public boolean move(int xPosition, int yPosition) {
         if (isGameOver())
-            return;
+            return false;
         if (xPosition >= SIZE || yPosition >= SIZE || xPosition < 0 || yPosition < 0)
-            return;
+            return false;
         if (!board[xPosition][yPosition].equals(FILLER))
-            return;
+            return false;
         updatePlayerMove(xPosition, yPosition);
+        return true;
     }
 
     private void updatePlayerMove(int xPosition, int yPosition) {
@@ -59,7 +60,7 @@ public class Game {
         changePlayer();
         printBoard();
         if (!isGameOver()) {
-            currPlayer.playMove(this, board);
+            currPlayer.playMove(this);
         }
     }
 
@@ -161,4 +162,7 @@ public class Game {
     }
 
 
+    public String[][] getBoard() {
+        return board;
+    }
 }

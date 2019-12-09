@@ -40,15 +40,18 @@ public class Player {
         return false;
     }
 
-    public void playMove(Game game, String[][] board) {
+    public void playMove(Game game) {
         System.out.println("Enter your x,y positions -> For first row and first column enter 1,1");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
         try {
             String[] moves = input.split(",");
-            game.move(Integer.parseInt(moves[0]) - 1, Integer.parseInt(moves[1]) - 1);
+            boolean result = game.move(Integer.parseInt(moves[0]) - 1, Integer.parseInt(moves[1]) - 1);
+            if (!result) {
+                playMove(game);
+            }
         } catch (Exception e) {
-            playMove(game, board);
+            playMove(game);
         }
     }
 }

@@ -13,8 +13,9 @@ public class AIPlayer extends Player {
         return true;
     }
 
-    public void playMove(Game game, String[][] board) {
+    public void playMove(Game game) {
 
+        String[][] board = game.getBoard();
         Move bestMove = new Move(-1, -1, Integer.MIN_VALUE);
         int gridSize = board.length;
         for (int i = 0; i < gridSize; i++) {
