@@ -1,25 +1,22 @@
 package com.jcg.tictactoe;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class Game {
 
     private int SIZE = 0;
-    private final String FILLER = " ";
-    private String[][] positions;
+    public static final String FILLER = " ";
+    private String[][] board;
     private Player[] players =
-            {new Player("Computer1", "X"), new Player("Computer2", "O")};
+            {new AIPlayer("Computer1", "X"), new AIPlayer("Computer2", "O")};
     private Player currPlayer = null;
 
     public Game(String player, int grid) {
         SIZE = grid == 0 ? 3 : grid;
-        positions = new String[SIZE][SIZE];
+        board = new String[SIZE][SIZE];
         players[0] = new Player(player, "X");
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                positions[i][j] = FILLER;
+                board[i][j] = FILLER;
             }
         }
         currPlayer = players[0];
@@ -28,64 +25,17 @@ public class Game {
     public Game(String player1, String player2, int grid) {
         this(player1, grid);
         players[1] = new Player(player2, "O");
-        playMove();
     }
 
-    private void playMove() {
-        if (!currPlayer.isComputer() || isGameOver()) {
-            return;
-        }
-
-        Player computer = currPlayer;
-        List<Move> moves = new ArrayList<>();
-
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                if (positions[i][j].equals(FILLER)) {
-                    positions[i][j] = computer.getSymbol();
-                    List<Score> scores = new ArrayList<>();
-                    miniMax(scores);
-                    Move move = new Move(i, j, scores);
-                    moves.add(move);
-//                    System.out.println(move.toString());
-                    positions[i][j] = FILLER;
-                    currPlayer = computer;
-                }
-            }
-        }
-        currPlayer = computer;
-        Collections.sort(moves);
-        updatePlayerMove(moves.get(0).getRow(), moves.get(0).getColumn());
-
-    }
-
-    private void miniMax(List<Score> scoreList) {
-        Player winner = getWinner();
-        if (currPlayer.equals(winner)) {
-            if (currPlayer.isComputer()) {
-                scoreList.add(new Score(true, false));
-            } else
-                scoreList.add(new Score(false, false));
-        }
-        if (isNoMovesLeft())
-            scoreList.add(new Score(false, true));
-        changePlayer();
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                if (positions[i][j].equals(FILLER)) {
-                    positions[i][j] = currPlayer.getSymbol();
-                    miniMax(scoreList);
-                    positions[i][j] = FILLER;
-
-                }
-            }
-        }
+    public void start() {
+        printBoard();
+        currPlayer.playMove(this, board);
     }
 
     private boolean isNoMovesLeft() {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if (positions[i][j].equals(FILLER)) {
+                if (board[i][j].equals(FILLER)) {
                     return false;
                 }
             }
@@ -99,22 +49,25 @@ public class Game {
             return;
         if (xPosition >= SIZE || yPosition >= SIZE || xPosition < 0 || yPosition < 0)
             return;
-        if (!positions[xPosition][yPosition].equals(FILLER))
+        if (!board[xPosition][yPosition].equals(FILLER))
             return;
         updatePlayerMove(xPosition, yPosition);
-        playMove();
     }
 
     private void updatePlayerMove(int xPosition, int yPosition) {
-        positions[xPosition][yPosition] = currPlayer.getSymbol();
+        board[xPosition][yPosition] = currPlayer.getSymbol();
         changePlayer();
+        printBoard();
+        if (!isGameOver()) {
+            currPlayer.playMove(this, board);
+        }
     }
 
     private void changePlayer() {
         currPlayer = currPlayer.equals(players[1]) ? players[0] : players[1];
     }
 
-    public void printBoard() {
+    private void printBoard() {
         String header = "  ";
         for (int j = 0; j < SIZE; j++) {
             header += "|" + (j + 1);
@@ -127,7 +80,7 @@ public class Game {
         for (int i = 0; i < SIZE; i++) {
             String row = (i + 1) + " ";
             for (int j = 0; j < SIZE; j++) {
-                row += "|" + positions[i][j];
+                row += "|" + board[i][j];
             }
             System.out.println(row);
             for (int j = 0; j < SIZE * 3; j++) {
@@ -144,9 +97,9 @@ public class Game {
 
     private String rowCrossed() {
         for (int i = 0; i < SIZE; i++) {
-            String check = positions[i][0];
+            String check = board[i][0];
             for (int j = 1; j < SIZE; j++) {
-                if (!check.equals(positions[i][j])) {
+                if (!check.equals(board[i][j])) {
                     check = FILLER;
                     break;
                 }
@@ -160,9 +113,9 @@ public class Game {
 
     private String columnCrossed() {
         for (int i = 0; i < SIZE; i++) {
-            String check = positions[0][i];
+            String check = board[0][i];
             for (int j = 1; j < SIZE; j++) {
-                if (!check.equals(positions[j][i])) {
+                if (!check.equals(board[j][i])) {
                     check = FILLER;
                     break;
                 }
@@ -175,9 +128,9 @@ public class Game {
     }
 
     private String diagonalCrossed() {
-        String check = positions[0][0];
+        String check = board[0][0];
         for (int i = 1; i < SIZE; i++) {
-            if (!check.equals(positions[i][i])) {
+            if (!check.equals(board[i][i])) {
                 check = FILLER;
                 break;
             }
@@ -185,9 +138,9 @@ public class Game {
         if (!check.equals(FILLER)) {
             return check;
         }
-        check = positions[0][2];
+        check = board[0][2];
         for (int i = 1; i < SIZE; i++) {
-            if (!check.equals(positions[i][SIZE - 1 - i])) {
+            if (!check.equals(board[i][SIZE - 1 - i])) {
                 check = FILLER;
                 break;
             }
@@ -206,4 +159,6 @@ public class Game {
         }
         return null;
     }
+
+
 }

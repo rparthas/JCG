@@ -1,6 +1,7 @@
 package com.jcg.tictactoe;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Player {
     public Player(String name, String symbol) {
@@ -12,17 +13,10 @@ public class Player {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getSymbol() {
         return symbol;
     }
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -35,7 +29,6 @@ public class Player {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(name, symbol);
     }
 
@@ -44,6 +37,18 @@ public class Player {
     private String symbol;
 
     public boolean isComputer() {
-        return name.contains("Computer");
+        return false;
+    }
+
+    public void playMove(Game game, String[][] board) {
+        System.out.println("Enter your x,y positions -> For first row and first column enter 1,1");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.next();
+        try {
+            String[] moves = input.split(",");
+            game.move(Integer.parseInt(moves[0]) - 1, Integer.parseInt(moves[1]) - 1);
+        } catch (Exception e) {
+            playMove(game, board);
+        }
     }
 }
