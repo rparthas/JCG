@@ -2,7 +2,7 @@ package com.jcg.demo;
 
 import java.io.*;
 
-public class Demo {
+public class PrintStreamDemo {
     public static void main(String[] args) throws IOException {
         File file = new File("test.txt");
         PrintStream printStream = new PrintStream(file);
