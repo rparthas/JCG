@@ -30,25 +30,25 @@ public class ArrayListDemo {
         Elapsed ms:741
          */
 
-        int loop = 100;
+//        int loop = 100;
         IntStream.range(0, 3).forEach(index -> {
-            long diff = 0;
-            for (int i = 0; i < loop; i++) {
-                StopWatch.start();
-                switch (index) {
-                    case 0:
-                        toObjectArray(numbers);
-                        break;
-                    case 1:
-                        toArray(numbers);
-                        break;
-                    case 2:
-                        fillArray(numbers);
-                        break;
-                }
-                diff += StopWatch.end();
+//            long diff = 0;
+//            for (int i = 0; i < loop; i++) {
+//                StopWatch.start();
+            switch (index) {
+                case 0:
+                    toObjectArray(numbers);
+                    break;
+                case 1:
+                    toArray(numbers);
+                    break;
+                case 2:
+                    fillArray(numbers);
+                    break;
             }
-            System.out.println("Elapsed ms:" + (diff / loop));
+//                diff += StopWatch.end();
+//                }
+//            System.out.println("Elapsed ms:" + (diff / loop));
         });
     }
 
@@ -63,13 +63,13 @@ public class ArrayListDemo {
     private static void toArray(List<Integer> numbers) {
         Integer[] dummy = new Integer[0];
         Integer[] ints = numbers.toArray(dummy);
-//        System.out.println(ints.length);
-//        System.out.println(dummy.length);
+        System.out.println(ints.length);
+        System.out.println(dummy.length);
     }
 
     private static void toObjectArray(List<Integer> numbers) {
         Object[] arr = numbers.toArray();
-//        System.out.println(arr.length);
+        System.out.println(arr.length);
     }
 
 

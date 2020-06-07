@@ -24,7 +24,7 @@ public class StringDemo {
                 "    <p>Hello, \\t world from Java %d</p>\n" +
                 "  </body>\n" +
                 "</html>\n";
-        System.out.println(html.formatted(13).stripIndent().translateEscapes());
+        // System.out.println(html.formatted(13).stripIndent().translateEscapes());
     }
 
     private static void java12() {
