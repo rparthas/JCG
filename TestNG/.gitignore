@@ -1,0 +1,13 @@
+/bin/
+/target/
+.idea/
+*.iml
+.project
+.settings
+.classpath
+chromedriver*
+*.DS_Store
+gradle*
+build/
+.gradle
+settings.gradle

@@ -1,0 +1,40 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="1">
+    <test name="addmul">
+        <classes>
+            <class name="com.jcg.testng.AddTest"/>
+            <class name="com.jcg.testng.MultiplyTest"/>
+        </classes>
+    </test>
+
+    <test name="subtract">
+        <classes>
+            <class name="com.jcg.testng.SubtractTest"/>
+        </classes>
+    </test>
+
+
+    <test name="calc_add">
+        <groups>
+            <run>
+                <include name="addgrp"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.jcg.testng.CalculatorTest"/>
+        </classes>
+    </test>
+
+    <test name="calc_sub">
+        <groups>
+            <run>
+                <include name="subgrp"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.jcg.testng.CalculatorTest"/>
+        </classes>
+    </test>
+</suite>
+
