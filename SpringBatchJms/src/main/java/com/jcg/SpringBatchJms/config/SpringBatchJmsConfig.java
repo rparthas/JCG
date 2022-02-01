@@ -1,5 +1,6 @@
 package com.jcg.SpringBatchJms.config;
 
+import com.jcg.SpringBatchJms.executors.MessageTasklet;
 import com.jcg.SpringBatchJms.model.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,8 @@ public class SpringBatchJmsConfig {
 
     public static final Logger logger = LoggerFactory.getLogger(SpringBatchJmsConfig.class.getName());
 
+    @Autowired
+    private MessageTasklet messageTasklet;
 
     @Autowired
     private JmsTemplate jmsTemplate;
@@ -82,7 +85,7 @@ public class SpringBatchJmsConfig {
         return jobBuilderFactory.get("importUserJob")
                 .incrementer(new RunIdIncrementer())
                 .listener(jobExecutionListener())
-                .flow(step1())
+                .flow(step2())
                 .end()
                 .build();
     }
@@ -95,12 +98,18 @@ public class SpringBatchJmsConfig {
                 .build();
     }
 
+    private Step step2() {
+        return stepBuilderFactory.get("step2")
+                .tasklet(messageTasklet)
+                .build();
+    }
+
     @Bean
     public JobExecutionListener jobExecutionListener() {
         return new JobExecutionListener() {
             @Override
             public void beforeJob(JobExecution jobExecution) {
-                IntStream.rangeClosed(1,100).forEach(token->{
+                IntStream.rangeClosed(1, 100).forEach(token -> {
                     Person[] people = {new Person("Jack", "Ryan"), new Person("Raymond", "Red"), new Person("Olivia", "Dunham"),
                             new Person("Walter", "Bishop"), new Person("Harry", "Bosch")};
                     for (Person person : people) {
