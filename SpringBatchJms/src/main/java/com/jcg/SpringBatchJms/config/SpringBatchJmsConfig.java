@@ -1,6 +1,5 @@
 package com.jcg.SpringBatchJms.config;
 
-import com.jcg.SpringBatchJms.executors.MessageTasklet;
 import com.jcg.SpringBatchJms.model.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +33,6 @@ import java.util.stream.IntStream;
 public class SpringBatchJmsConfig {
 
     public static final Logger logger = LoggerFactory.getLogger(SpringBatchJmsConfig.class.getName());
-
-    @Autowired
-    private MessageTasklet messageTasklet;
 
     @Autowired
     private JmsTemplate jmsTemplate;
@@ -74,7 +70,7 @@ public class SpringBatchJmsConfig {
     @Bean
     public FlatFileItemWriter<Person> personFlatFileItemWriter() {
         FlatFileItemWriter<Person> personFlatFileItemWriter = new FlatFileItemWriter<>();
-        personFlatFileItemWriter.setLineAggregator(person -> person.toString());
+        personFlatFileItemWriter.setLineAggregator(Person::toString);
         personFlatFileItemWriter.setLineSeparator(System.lineSeparator());
         personFlatFileItemWriter.setResource(new FileSystemResource("person.txt"));
         return personFlatFileItemWriter;
@@ -85,7 +81,7 @@ public class SpringBatchJmsConfig {
         return jobBuilderFactory.get("importUserJob")
                 .incrementer(new RunIdIncrementer())
                 .listener(jobExecutionListener())
-                .flow(step2())
+                .flow(step1())
                 .end()
                 .build();
     }
@@ -98,11 +94,6 @@ public class SpringBatchJmsConfig {
                 .build();
     }
 
-    private Step step2() {
-        return stepBuilderFactory.get("step2")
-                .tasklet(messageTasklet)
-                .build();
-    }
 
     @Bean
     public JobExecutionListener jobExecutionListener() {
